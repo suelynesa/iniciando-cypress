@@ -1,3 +1,5 @@
+import credentials from '../fixtures/credentials.json'
+
 describe('Orange HRM Tests', () => {
   
   const selectorsList = {
@@ -7,19 +9,19 @@ describe('Orange HRM Tests', () => {
     dashBoardGrid: '.orangehrm-dashboard-grid',  
     wrongCredentialAlert: '[role="alert"]'
   }
-  
-    it('Login - Sucess', () => {
+
+  it('Login - Sucess', () => {
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    cy.get(selectorsList.usernameField).type('Admin')
-    cy.get(selectorsList.passwordField).type('admin123')
+    cy.get(selectorsList.usernameField).type(credentials.valid.username)
+    cy.get(selectorsList.passwordField).type(credentials.valid.password)
     cy.get(selectorsList.loginButton).click()
     cy.location('pathname').should('equal', '/web/index.php/dashboard/index')
     cy.get(selectorsList.dashBoardGrid)
   })
   it('Login - Failed', () => {
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    cy.get(selectorsList.usernameField).type('Test')
-    cy.get(selectorsList.passwordField).type('Test')
+    cy.get(selectorsList.usernameField).type(credentials.invalid.username)
+    cy.get(selectorsList.passwordField).type(credentials.invalid.password)
     cy.get(selectorsList.loginButton).click()
     cy.get(selectorsList.wrongCredentialAlert)
 
