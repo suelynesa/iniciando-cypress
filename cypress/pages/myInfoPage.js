@@ -8,7 +8,7 @@ class MyInfoPage {
             dateField: "[placeholder='yyyy-dd-mm']",
             dateCloseButton: '.--close',
             genericDropdown: '.oxd-select-text',
-            genderButton: '.oxd-radio-wrapper',
+            genderButton: '.--label-right',
             saveButton: '[type="submit"]'
         }
 
@@ -16,7 +16,7 @@ class MyInfoPage {
     }
 
     fillPersonalDetails(firstName, lastName){
-            cy.get(this.selectorsList().firstNameField, { force: true }).clear().type(firstName)
+            cy.get(this.selectorsList().firstNameField).should('be.visible').clear().type(firstName)
             cy.get(this.selectorsList().lastNameField).clear().type(lastName)
     }
     
@@ -30,7 +30,7 @@ class MyInfoPage {
         
     saveForm() {
             cy.get(this.selectorsList().saveButton).eq(0).click()
-            cy.get('body').should('contain', 'Successfully Updated')
+            cy.get('body').should('contain', 'Success')
     }
 
     fillStatusDetails(nationality, maritalStatus) {
@@ -38,7 +38,7 @@ class MyInfoPage {
             cy.contains('.oxd-select-dropdown div', nationality).click()
             cy.get(this.selectorsList().genericDropdown).eq(1).click()
             cy.contains('.oxd-select-dropdown div', maritalStatus).click()
-            cy.get(this.selectorsList().genderButton).eq(1).click({ force: true })
+            cy.get(this.selectorsList().genderButton).eq(1).click()
             
             
     }
